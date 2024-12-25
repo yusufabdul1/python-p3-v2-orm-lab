@@ -187,7 +187,19 @@ class Employee:
 
     def reviews(self):
         """Return list of reviews associated with current employee"""
-        sql = "SELECT * FROM reviews WHERE employee_id = ?;"
+        from review import Review  # Importing Review class here to avoid circular imports
+
+        sql = """
+            SELECT *
+            FROM reviews
+            WHERE employee_id = ?
+        """
         CURSOR.execute(sql, (self.id,))
         rows = CURSOR.fetchall()
-        return [Review.instance_from_db(row) for row in rows]
+
+        reviews = []
+        for row in rows:
+            review = Review.instance_from_db(row)
+            reviews.append(review)
+
+        return reviews

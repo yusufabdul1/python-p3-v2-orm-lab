@@ -1,7 +1,7 @@
 from __init__ import CONN, CURSOR
+from faker import Faker
 from employee import Employee
 from department import Department
-from faker import Faker
 import pytest
 
 
